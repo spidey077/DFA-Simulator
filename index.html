@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-100">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DFA Simulator &amp; String Validator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Vis.js Network CDN -->
+  <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="h-full flex flex-col">
+  <header
+    class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-4 shadow-md flex items-center justify-between">
+    <h1 class="text-2xl font-bold text-center flex-1">DFA Simulator &amp; String Validator</h1>
+    <button id="themeToggleBtn" class="p-2 rounded-full hover:bg-white/20 transition-colors focus:outline-none"
+      aria-label="Toggle dark mode">
+      <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M12 3v1m0 16v1m8.66-12.34l-.71.71M5.05 18.95l-.71.71m12.02 0l.71.71M5.05 5.05l.71.71M21 12h-1M4 12H3m16.95 4.95l-.71-.71M5.05 7.05l-.71-.71" />
+      </svg>
+    </button>
+  </header>
+  <main class="flex-1 overflow-auto p-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
+      <!-- Left Panel: Configuration -->
+      <section class="bg-white rounded-lg shadow p-4 flex flex-col gap-4">
+        <h2 class="text-xl font-semibold text-gray-800">DFA Configuration</h2>
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">States (comma separated)</label>
+          <input id="statesInput" type="text" placeholder="e.g., q0, q1, q2" class="w-full px-3 py-2 border rounded" />
+        </div>
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">Alphabet (comma separated)</label>
+          <input id="alphabetInput" type="text" placeholder="e.g., 0, 1" class="w-full px-3 py-2 border rounded" />
+        </div>
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">Start State</label>
+          <input id="startStateInput" type="text" placeholder="e.g., q0" class="w-full px-3 py-2 border rounded" />
+        </div>
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">Accept States (comma separated)</label>
+          <input id="acceptStatesInput" type="text" placeholder="e.g., q2" class="w-full px-3 py-2 border rounded" />
+        </div>
+        <div class="space-y-2 flex-1">
+          <label class="block text-sm font-medium text-gray-700">Transition Table</label>
+          <textarea id="transitionsInput" rows="8" placeholder="q0, 0 -> q0\nq0, 1 -> q1"
+            class="w-full p-2 border rounded resize-none"></textarea>
+        </div>
+        <div class="flex gap-2">
+          <button id="loadExampleBtn" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded">Load
+            Example: Strings Ending in '10'</button>
+          <button id="buildGraphBtn" class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded">Build
+            DFA</button>
+        </div>
+      </section>
+
+      <!-- Right Panel: Visualization & Testing -->
+      <section class="bg-white rounded-lg shadow p-4 flex flex-col gap-4">
+        <h2 class="text-xl font-semibold text-gray-800">Visualization & String Testing</h2>
+        <div id="graph" class="border rounded bg-gray-50 flex-1 overflow-hidden shadow-inner"></div>
+        <div class="space-y-2 mt-4">
+          <label class="block text-sm font-medium text-gray-700">Enter Input String</label>
+          <input id="inputString" type="text" placeholder="e.g., 11010" class="w-full px-3 py-2 border rounded" />
+        </div>
+        <div class="flex gap-2 mt-2">
+          <button id="resetBtn" class="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2 rounded">Reset</button>
+          <button id="stepBtn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded">Step
+            Forward</button>
+          <button id="autoRunBtn" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-2 rounded">Auto
+            Run</button>
+        </div>
+        <div id="statusBanner" class="mt-4 p-2 text-center font-medium rounded"></div>
+      </section>
+    </div>
+  </main>
+  <script src="script.js"></script>
+</body>
+
+</html>

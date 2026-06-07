@@ -1,0 +1,47 @@
+/* Custom CSS for Automata Playground */
+/* Ensure the app looks premium with subtle gradients and glassmorphism */
+
+/* Body background gradient */
+html, body {
+  background: linear-gradient(135deg, #f0f5ff, #e6e8ff);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Glass effect for panels */
+section {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+}
+
+/* Status badge colors (overrides via JS) */
+#statusBanner.success {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+#statusBanner.error {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+#statusBanner.info {
+  background-color: #bfdbfe;
+  color: #1e3a8a;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr !important;
+  }
+}
