@@ -1,4 +1,47 @@
-// script.js – DFA Playground core logic
+function showLoading() {
+  const overlay = document.getElementById('loadingOverlay');
+  if (overlay) {
+    overlay.style.opacity = '1';
+    overlay.style.display = 'flex';
+  }
+}
+
+function hideLoading() {
+  const overlay = document.getElementById('loadingOverlay');
+  if (overlay) {
+    overlay.style.transition = 'opacity 0.5s ease';
+    overlay.style.opacity = '0';
+    setTimeout(() => overlay.style.display = 'none', 500);
+  }
+}
+
+// Show loading spinner while the app initializes
+showLoading();
+// Auto‑hide the loading screen after a 3-second delay to show the splash screen
+let splashTimeout;
+window.addEventListener('load', () => {
+  splashTimeout = setTimeout(() => {
+    dismissSplashScreen();
+  }, 3000);
+});
+
+// Dismiss splash screen on Enter key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    clearTimeout(splashTimeout);
+    dismissSplashScreen();
+  }
+});
+
+let splashDismissed = false;
+function dismissSplashScreen() {
+  if (splashDismissed) return;
+  splashDismissed = true;
+  hideLoading();
+  // Preload the example DFA so the UI is ready immediately
+  loadExample();
+  buildDFA();
+}
 // Author: Antigravity (Senior Frontend Engineer)
 // This file implements parsing of DFA definition, building a Vis.js graph,
 // and interactive string simulation with step‑by‑step control.
@@ -254,6 +297,7 @@ function buildDFA() {
     console.error(e);
   }
 }
+
 
 /**
  * Initialise event listeners after DOM load.
